@@ -29,6 +29,8 @@ plot(df$FullTime, df$Sub_metering_1, pch = 26,xlab="", ylab="Energy sub metering
 lines(df$FullTime, df$Sub_metering_1, col = "black") 
 lines(df$FullTime, df$Sub_metering_2, col = "red") 
 lines(df$FullTime, df$Sub_metering_3, col = "blue")
+legend("topright", c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),lty=1, col=c("black", "red", "blue"))
+
 
 # Plot 4
 plot(df$FullTime, df$Global_reactive_power, pch = 26,xlab="datetime", ylab="Global_reactive_power")
