@@ -17,7 +17,8 @@ df$Global_active_power  <- as.numeric(df$Global_active_power)
 df$FullTime <- strptime(paste(df$Date, df$Time), "%Y-%m-%d %H:%M:%S")
 
 # Plot
-plot(df$FullTime, df$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+plot(df$FullTime, df$Global_active_power, type="l", xlab="", ylab="")
+title(ylab="Global Active Power (kilowatts)", cex.lab = .7)
 
 # Save to png file
 dev.copy(png, file = "plot2.png", width = 480, height = 480, units = "px")

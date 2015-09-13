@@ -17,7 +17,9 @@ df$Global_active_power  <- as.numeric(df$Global_active_power)
 df$FullTime <- strptime(paste(df$Date, df$Time), "%Y-%m-%d %H:%M:%S")
 
 # Plot first sub metering and set plot values
-plot(df$FullTime, as.numeric(df$Sub_metering_1), type="l", xlab="", ylab="Energy sub metering")
+plot(df$FullTime, as.numeric(df$Sub_metering_1), type="l", xlab="", ylab="")
+title(xlab="", cex.lab = .7)
+title(ylab="Energy sub metering", cex.lab = .7)
 
 # Add second metering in red color
 lines(df$FullTime, as.numeric(df$Sub_metering_2), type="l", col = "red") 
