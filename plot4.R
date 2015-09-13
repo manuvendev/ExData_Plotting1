@@ -22,25 +22,32 @@ df$Sub_metering_3 <- as.numeric(df$Sub_metering_3)
 df$FullTime <- strptime(paste(df$Date, df$Time), "%Y-%m-%d %H:%M:%S")
 
 # Plot 1
-plot(df$FullTime, df$Global_active_power, type="l", xlab="", ylab="Global Active Power")
+plot(df$FullTime, df$Global_active_power, type="l", xlab="", ylab = "")
+title(ylab="Global Active Power", cex.lab = .7)
 
 # Plot 2
-plot(df$FullTime, df$Voltage, type="l", xlab="datetime", ylab="Voltage")
+plot(df$FullTime, df$Voltage, type="l", xlab="", ylab="")
+title(xlab="datetime", cex.lab = .7)
+title(ylab="Voltage", cex.lab = .7)
 
 # Plot 3
-plot(df$FullTime, df$Sub_metering_1, type="l",xlab="", ylab="Energy sub metering")
+plot(df$FullTime, df$Sub_metering_1, type="l",xlab="", ylab="")
+title(xlab="", cex.lab = .7)
+title(ylab="Energy sub metering", cex.lab = .7)
 lines(df$FullTime, df$Sub_metering_2, type="l", col = "red") 
 lines(df$FullTime, df$Sub_metering_3, type="l", col = "blue")
 legend("topright", 
        c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
        lty=1, 
        col=c("black", "red", "blue"), 
-       cex = .5,
+       cex = .6,
        bty = "n"
        )
 
 # Plot 4
-plot(df$FullTime, df$Global_reactive_power, type = "l",xlab="datetime", ylab="Global_reactive_power")
+plot(df$FullTime, df$Global_reactive_power, type = "l",xlab="", ylab="")
+title(xlab="datetime", cex.lab = .7)
+title(ylab="Global_reactive_power", cex.lab = .7)
 
 # Save to png file
 dev.copy(png, file = "plot4.png", width = 480, height = 480, units = "px")
