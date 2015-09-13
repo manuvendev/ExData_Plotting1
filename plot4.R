@@ -1,46 +1,46 @@
-# set par 2 x 2
+# Set plotting allocation
 par(mfrow = c(2,2))
 
-# Get raw data
-data <- read.table("household_power_consumption.txt", sep = ";", header = T)
-# set Date field as Date
+# Get data from text file
+data <- read.table("household_power_consumption.txt", sep = ";", header = T, stringsAsFactors=FALSE, dec=".")
+
+# Transform date field
 data$Date <- as.Date( data$Date, format = "%d/%m/%Y")
 
-# Retrieve data for the specified dates
+# Subset data according to the desired dates
 df <- subset(data, data$Date == as.Date("2007-02-01") | data$Date == as.Date("2007-02-02"))
 
-# Change type of the Global Active Power column to double
-df$Global_active_power <- as.double(df$Global_active_power)
+# Change column types
+df$Global_active_power  <- as.numeric(df$Global_active_power)
+df$Global_reactive_power  <- as.numeric(df$Global_reactive_power)
+df$Voltage  <- as.numeric(df$Voltage)
+df$Sub_metering_1 <- as.numeric(df$Sub_metering_1)
+df$Sub_metering_2 <- as.numeric(df$Sub_metering_2)
+df$Sub_metering_3 <- as.numeric(df$Sub_metering_3)
 
-# Create a new column containing the full date time, date + time.
+# Create datetime to plot time series.
 df$FullTime <- strptime(paste(df$Date, df$Time), "%Y-%m-%d %H:%M:%S")
 
 # Plot 1
-plot(df$FullTime, df$Global_active_power, pch = 26,xlab="", ylab="Global Active Power")
-lines(df$FullTime, df$Global_active_power) 
+plot(df$FullTime, df$Global_active_power, type="l", xlab="", ylab="Global Active Power")
 
 # Plot 2
-plot(df$FullTime, df$Voltage, pch = 26,xlab="datetime", ylab="Voltage")
-lines(df$FullTime, df$Voltage, col = "black") 
-
+plot(df$FullTime, df$Voltage, type="l", xlab="datetime", ylab="Voltage")
 
 # Plot 3
-plot(df$FullTime, df$Sub_metering_1, pch = 26,xlab="", ylab="Energy sub metering")
-lines(df$FullTime, df$Sub_metering_1, col = "black") 
-lines(df$FullTime, df$Sub_metering_2, col = "red") 
-lines(df$FullTime, df$Sub_metering_3, col = "blue")
+plot(df$FullTime, df$Sub_metering_1, type="l",xlab="", ylab="Energy sub metering")
+lines(df$FullTime, df$Sub_metering_2, type="l", col = "red") 
+lines(df$FullTime, df$Sub_metering_3, type="l", col = "blue")
 legend("topright", 
        c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
        lty=1, 
        col=c("black", "red", "blue"), 
-       cex = .4,
+       cex = .5,
        bty = "n"
        )
 
-
 # Plot 4
-plot(df$FullTime, df$Global_reactive_power, pch = 26,xlab="datetime", ylab="Global_reactive_power")
-lines(df$FullTime, df$Global_reactive_power, col = "black") 
+plot(df$FullTime, df$Global_reactive_power, type = "l",xlab="datetime", ylab="Global_reactive_power")
 
 # Save to png file
 dev.copy(png, file = "plot4.png", width = 480, height = 480, units = "px")
